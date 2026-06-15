@@ -1,0 +1,29 @@
+# Separate cc_test per source file so Bazel's action-level caching is visible:
+# editing one source recompiles/reruns only the affected test action.
+
+cc_test(
+    name = "sorting_test",
+    srcs = ["sorting_test.cc"],
+    deps = [
+        "//src:eduide",
+        "@googletest//:gtest_main",
+    ],
+)
+
+cc_test(
+    name = "stats_test",
+    srcs = ["stats_test.cc"],
+    deps = [
+        "//src:eduide",
+        "@googletest//:gtest_main",
+    ],
+)
+
+cc_test(
+    name = "strtools_test",
+    srcs = ["strtools_test.cc"],
+    deps = [
+        "//src:eduide",
+        "@googletest//:gtest_main",
+    ],
+)

@@ -1,0 +1,23 @@
+package(default_visibility = ["//visibility:public"])
+
+cc_library(
+    name = "eduide",
+    srcs = [
+        "sorting.c",
+        "stats.c",
+        "strtools.c",
+    ],
+    hdrs = [
+        "sorting.h",
+        "stats.h",
+        "strtools.h",
+    ],
+    # exposes headers as "sorting.h" etc. to this library and its dependents
+    includes = ["."],
+)
+
+cc_binary(
+    name = "app",
+    srcs = ["app.c"],
+    deps = [":eduide"],
+)

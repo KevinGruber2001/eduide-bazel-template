@@ -1,0 +1,10 @@
+module(
+    name = "eduide_bazel_template",
+    version = "1.0.0",
+)
+
+# GoogleTest is the one external dependency (used to test the C code from C++),
+# mirroring the "a few real dependencies" shape of the Gradle template.
+# cc_library / cc_binary / cc_test are native rules in Bazel 7, so no rules_cc
+# dependency is required.
+bazel_dep(name = "googletest", version = "1.15.2")
