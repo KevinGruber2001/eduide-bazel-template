@@ -1,9 +1,6 @@
 # bzlmod is the default in Bazel 7; keep it explicit for clarity.
 common --enable_bzlmod
 
-# GoogleTest requires C++14 or newer.
-build --cxxopt=-std=c++17
-
 # Show test failures inline.
 test --test_output=errors
 

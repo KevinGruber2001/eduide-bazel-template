@@ -1,29 +1,37 @@
+# Pure-C tests (the C blueprint provides a C-only toolchain, so no GoogleTest).
 # Separate cc_test per source file so Bazel's action-level caching is visible:
 # editing one source recompiles/reruns only the affected test action.
 
+cc_library(
+    name = "check",
+    testonly = True,
+    hdrs = ["check.h"],
+    includes = ["."],  # exposes "check.h" to the tests
+)
+
 cc_test(
     name = "sorting_test",
-    srcs = ["sorting_test.cc"],
+    srcs = ["sorting_test.c"],
     deps = [
+        ":check",
         "//src:eduide",
-        "@googletest//:gtest_main",
     ],
 )
 
 cc_test(
     name = "stats_test",
-    srcs = ["stats_test.cc"],
+    srcs = ["stats_test.c"],
     deps = [
+        ":check",
         "//src:eduide",
-        "@googletest//:gtest_main",
     ],
 )
 
 cc_test(
     name = "strtools_test",
-    srcs = ["strtools_test.cc"],
+    srcs = ["strtools_test.c"],
     deps = [
+        ":check",
         "//src:eduide",
-        "@googletest//:gtest_main",
     ],
 )

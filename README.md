@@ -11,19 +11,21 @@ tools).
 - **C + Bazel** exercises a fundamentally different toolchain (compile + link of
   C objects) and Bazel's **action-level** caching, which is the property the
   evaluation highlights against Gradle's coarser task-level caching.
-- **One external dependency** (GoogleTest, used to test the C code from C++),
-  matching the "a few real dependencies" shape of the Gradle template.
+- **No external dependencies.** The EduIDE C blueprint ships a *C-only*
+  toolchain (no C++ / `cc1plus`), so tests use a tiny pure-C harness
+  (`test/check.h`) instead of GoogleTest. The dependency-proxy part of the
+  evaluation is covered by the Gradle/Maven template instead.
 - **Per-file `cc_test` targets** so an edit reruns only the affected test action,
   making fine-grained cache reuse visible (used for the Bazel reuse experiment).
 - `sorting.c` is the dependency-free edit target for incremental builds.
 
 ## Layout
 ```
-MODULE.bazel                bzlmod deps (googletest)
+MODULE.bazel                bzlmod module (no external deps)
 src/BUILD.bazel             :eduide cc_library, :app cc_binary
 src/{sorting,stats,strtools}.{c,h}, app.c
-test/BUILD.bazel            one cc_test per *_test.cc
-test/{sorting,stats,strtools}_test.cc   GoogleTest
+test/BUILD.bazel            :check helper + one cc_test per *_test.c
+test/check.h, test/{sorting,stats,strtools}_test.c   pure-C tests
 ```
 
 ## Build
@@ -33,14 +35,8 @@ bazel test  //...
 # with the shared remote cache (no auth while disabled):
 bazel build //... --remote_cache=http://eduide-shared-cache.<ns>.svc.cluster.local:8080/bazel/
 ```
-Bazel 7.4.1 (pinned in `.bazelversion`); needs a local C/C++ toolchain (present
+Bazel 7.4.1 (pinned in `.bazelversion`); needs a local **C** toolchain (present
 in the EduIDE C blueprint).
-
-## Versions
-`MODULE.bazel` pins `googletest` and `.bazelversion` pins Bazel to a known-good
-combination. Run `bazel build //...` once after cloning to resolve and generate
-`MODULE.bazel.lock`; if the Bazel Central Registry offers a different version,
-Bazel reports the available ones and you can bump accordingly.
 
 ## Use in the benchmark harness (theia-scale-tests)
 ```
