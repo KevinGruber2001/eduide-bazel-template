@@ -6,14 +6,18 @@ cc_library(
         "sorting.c",
         "stats.c",
         "strtools.c",
-    ],
+        "gen_dispatch.c",
+    ] + glob(["genmods/*.c"]),
     hdrs = [
         "sorting.h",
         "stats.h",
         "strtools.h",
+        "gen.h",
     ],
     # exposes headers as "sorting.h" etc. to this library and its dependents
     includes = ["."],
+    # -O2 so the generated modules cost real compile time (the cacheable work).
+    copts = ["-O2"],
 )
 
 cc_binary(

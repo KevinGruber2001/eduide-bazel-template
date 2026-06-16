@@ -1,5 +1,6 @@
 #include <stdio.h>
 
+#include "gen.h"
 #include "sorting.h"
 #include "stats.h"
 #include "strtools.h"
@@ -27,6 +28,7 @@ int main(void) {
     str_reverse_words("the quick brown fox", reversed, sizeof(reversed));
     printf("reversed = %s\n", reversed);
     printf("words    = %d\n", str_word_count("the quick brown fox"));
+    printf("gen      = %ld\n", eduide_gen_total(data[0]));
 
     return 0;
 }
