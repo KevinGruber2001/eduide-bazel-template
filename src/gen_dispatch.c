@@ -22,25 +22,5 @@ long eduide_gen_total(long x){
   s+=mod_017(x);
   s+=mod_018(x);
   s+=mod_019(x);
-  s+=mod_020(x);
-  s+=mod_021(x);
-  s+=mod_022(x);
-  s+=mod_023(x);
-  s+=mod_024(x);
-  s+=mod_025(x);
-  s+=mod_026(x);
-  s+=mod_027(x);
-  s+=mod_028(x);
-  s+=mod_029(x);
-  s+=mod_030(x);
-  s+=mod_031(x);
-  s+=mod_032(x);
-  s+=mod_033(x);
-  s+=mod_034(x);
-  s+=mod_035(x);
-  s+=mod_036(x);
-  s+=mod_037(x);
-  s+=mod_038(x);
-  s+=mod_039(x);
   return s;
 }
